@@ -3,7 +3,7 @@
     "path": "D:/projects/tides/about.Rmd",
     "project_path": "about.Rmd",
     "type": "r_markdown",
-    "hash": "2175285478",
+    "hash": "2449141351",
     "contents": "",
     "dirty": false,
     "created": 1630704757223.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "6,69",
+        "cursorPosition": "6,59",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1631138032,
+    "lastKnownWriteTime": 1631138632,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1631138032716,
+    "last_content_update": 1631138632563,
     "read_only": false,
     "read_only_alternatives": []
 }
