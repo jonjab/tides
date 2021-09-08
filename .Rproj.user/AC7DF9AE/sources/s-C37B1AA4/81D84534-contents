@@ -1,0 +1,8 @@
+name: "tides-and-sunsets"
+navbar:
+  title: "Tides and Sunsets"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
