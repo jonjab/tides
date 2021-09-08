@@ -276,26 +276,49 @@ $(document).ready(function () {
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(rtide)</code></pre>
 <pre><code>## rtide is not suitable for navigation</code></pre>
-<pre class="r"><code>current_tide_df &lt;- tide_height(
-  stations = &quot;Santa Barbara&quot;
+<pre class="r"><code>library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code>today &lt;- Sys.Date()
+now &lt;- Sys.time()
+
+current_tide_df &lt;- tide_height(
+  stations = &quot;Santa Barbara&quot;,
+  from = as.Date(today), to = as.Date(today + 3)
 )
 
-current_tide_df</code></pre>
-<pre><code>## # A tibble: 24 x 3
-##    Station                                  DateTime            TideHeight
-##    &lt;chr&gt;                                    &lt;dttm&gt;                   &lt;dbl&gt;
-##  1 Santa Barbara, Pacific Ocean, California 2015-01-01 00:00:00      0.506
-##  2 Santa Barbara, Pacific Ocean, California 2015-01-01 01:00:00      0.749
-##  3 Santa Barbara, Pacific Ocean, California 2015-01-01 02:00:00      0.931
-##  4 Santa Barbara, Pacific Ocean, California 2015-01-01 03:00:00      1.02 
-##  5 Santa Barbara, Pacific Ocean, California 2015-01-01 04:00:00      0.985
-##  6 Santa Barbara, Pacific Ocean, California 2015-01-01 05:00:00      0.865
-##  7 Santa Barbara, Pacific Ocean, California 2015-01-01 06:00:00      0.701
-##  8 Santa Barbara, Pacific Ocean, California 2015-01-01 07:00:00      0.558
-##  9 Santa Barbara, Pacific Ocean, California 2015-01-01 08:00:00      0.500
-## 10 Santa Barbara, Pacific Ocean, California 2015-01-01 09:00:00      0.562
-## # ... with 14 more rows</code></pre>
-<p>For more information about simple R Markdown websites, please read the documentation at <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html" class="uri">https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html</a>.</p>
+str(current_tide_df)</code></pre>
+<pre><code>## tibble [96 x 3] (S3: tbl_df/tbl/data.frame)
+##  $ Station   : chr [1:96] &quot;Santa Barbara, Pacific Ocean, California&quot; &quot;Santa Barbara, Pacific Ocean, California&quot; &quot;Santa Barbara, Pacific Ocean, California&quot; &quot;Santa Barbara, Pacific Ocean, California&quot; ...
+##  $ DateTime  : POSIXct[1:96], format: &quot;2021-09-08 00:00:00&quot; &quot;2021-09-08 01:00:00&quot; ...
+##  $ TideHeight: num [1:96] 0.468 0.634 0.915 1.242 1.54 ...
+##  - attr(*, &quot;out.attrs&quot;)=List of 2
+##   ..$ dim     : Named int [1:2] 1 96
+##   .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;Station&quot; &quot;DateTime&quot;
+##   ..$ dimnames:List of 2
+##   .. ..$ Station : chr &quot;Station=Santa Barbara, Pacific Ocean, California&quot;
+##   .. ..$ DateTime: chr [1:96] &quot;DateTime=2021-09-08 00:00:00&quot; &quot;DateTime=2021-09-08 01:00:00&quot; &quot;DateTime=2021-09-08 02:00:00&quot; &quot;DateTime=2021-09-08 03:00:00&quot; ...</code></pre>
+<pre class="r"><code>current_tide_df[1,]</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   Station                                  DateTime            TideHeight
+##   &lt;chr&gt;                                    &lt;dttm&gt;                   &lt;dbl&gt;
+## 1 Santa Barbara, Pacific Ocean, California 2021-09-08 00:00:00      0.468</code></pre>
+<p>Here are the tides for the next 3 days:</p>
+<pre class="r"><code>ggplot(data = current_tide_df, aes(x = DateTime, y=TideHeight)) +
+  geom_line() +
+  scale_x_datetime(
+  name = &quot;Date&quot;,
+  labels = date_format(&quot;%d %b %Y&quot;, tz = &quot;PST8PDT&quot;)) +
+  scale_y_continuous() +
+  geom_vline(xintercept = now, colour = &quot;blue&quot;) +
+  ggtitle(&quot;Santa Barbara Tides&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 
 
 
